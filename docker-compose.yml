@@ -1,0 +1,68 @@
+version: "3.12"
+
+services:
+  donors-server-dev:
+    build:
+      context: ./src
+      dockerfile: Dockerfile
+      target: development
+    image: donors-app-server
+    container_name: donors-app-server
+    profiles:
+      - dev
+    ports:
+      - 8002:8001
+    env_file:
+      - ./.env
+    depends_on:
+      - donors-db
+    links:
+      - donors-db
+    volumes:
+      - ./src/app:/app
+      - ./src/logs:/var/logs
+      - ./static:/static
+    networks:
+      - donors-dev
+  donors-db:
+    container_name: donors-db
+    image: debezium/postgres:13-alpine
+    profiles:
+      - prod
+      - dev
+    restart: always
+    ports:
+      - "5400:5432"
+    env_file:
+      - ./.env
+    command: [ "postgres", "-c", "wal_level=logical" ]
+    networks:
+      - donors-dev
+    volumes:
+      - donors_db_data:/var/lib/postgresql/data
+
+  minio-local:
+    image: minio/minio
+    container_name: minio-local
+    profiles:
+      - dev
+    ports:
+      - 9000:9000
+      - 9001:9001
+    volumes:
+      - ./data/minio:/data
+    environment:
+      MINIO_ROOT_USER: master123123
+      MINIO_ROOT_PASSWORD: master123123
+    command: server --console-address ":9001" /data
+    networks:
+      - donors-dev
+  
+  
+volumes:
+  donors_db_data:
+
+networks:
+  donors-dev:
+    name: donors-dev
+    driver: bridge
