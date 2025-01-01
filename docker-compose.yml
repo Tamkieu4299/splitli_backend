@@ -1,13 +1,13 @@
 version: "3.12"
 
 services:
-  donors-server-dev:
+  splitli-server-dev:
     build:
       context: ./src
       dockerfile: Dockerfile
       target: development
-    image: donors-app-server
-    container_name: donors-app-server
+    image: splitli-app-server
+    container_name: splitli-app-server
     profiles:
       - dev
     ports:
@@ -15,17 +15,17 @@ services:
     env_file:
       - ./.env
     depends_on:
-      - donors-db
+      - splitli-db
     links:
-      - donors-db
+      - splitli-db
     volumes:
       - ./src/app:/app
       - ./src/logs:/var/logs
       - ./static:/static
     networks:
-      - donors-dev
-  donors-db:
-    container_name: donors-db
+      - splitli-dev
+  splitli-db:
+    container_name: splitli-db
     image: debezium/postgres:13-alpine
     profiles:
       - prod
@@ -37,9 +37,9 @@ services:
       - ./.env
     command: [ "postgres", "-c", "wal_level=logical" ]
     networks:
-      - donors-dev
+      - splitli-dev
     volumes:
-      - donors_db_data:/var/lib/postgresql/data
+      - splitli_db_data:/var/lib/postgresql/data
 
   minio-local:
     image: minio/minio
@@ -56,13 +56,13 @@ services:
       MINIO_ROOT_PASSWORD: master123123
     command: server --console-address ":9001" /data
     networks:
-      - donors-dev
+      - splitli-dev
   
   
 volumes:
-  donors_db_data:
+  splitli_db_data:
 
 networks:
-  donors-dev:
-    name: donors-dev
+  splitli-dev:
+    name: splitli-dev
     driver: bridge
