@@ -13,9 +13,6 @@ class UserRegisterBaseSchema(BaseModel):
     gender: int
     phone: str
     email: str
-    sum_of_do_bloods: float = 0
-    type_of_blood: str
-    role: Literal["donor", "admin", "vendor"]  = "donor"
 
     class Config:
         orm_mode = True
@@ -57,8 +54,6 @@ class RegisterResponse(BaseModel):
     email: str
     token: str
     token_type: str
-    sum_of_do_bloods: float = 0
-    type_of_blood: str
     role = str
 
     class Config:
@@ -77,9 +72,6 @@ class LoginResponse(BaseModel):
     email: str
     token: str
     token_type: str
-    sum_of_do_bloods: float = 0
-    type_of_blood: str
-    role = str
 
     class Config:
         orm_mode = True
