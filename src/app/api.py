@@ -9,9 +9,6 @@ from middleware.request_context import RequestContextMiddleware
 from middleware.request_logging import RequestLoggingMiddleware
 from models._base_model import _metadata_obj
 from routers.auth import router as auth_router
-from routers.site import router as site_router
-from routers.donation import router as donation_router
-from routers.map import router as map_router
 
 settings = Settings()
 PREFIX = f"/api/{settings.API_VERSION}"
@@ -44,9 +41,6 @@ app.add_middleware(RequestLoggingMiddleware)
 
 # Include the router
 app.include_router(auth_router, tags=["Authenication"], prefix=f"{PREFIX}/auth")
-app.include_router(site_router, tags=["Site"], prefix=f"{PREFIX}/site")
-app.include_router(donation_router, tags=["Donation"], prefix=f"{PREFIX}/donation")
-app.include_router(map_router, tags=["Map"], prefix=f"{PREFIX}/map")
 
 
 

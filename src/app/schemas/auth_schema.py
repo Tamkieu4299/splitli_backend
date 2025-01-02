@@ -13,6 +13,7 @@ class UserRegisterBaseSchema(BaseModel):
     gender: int
     phone: str
     email: str
+    avatar: str = None
 
     class Config:
         orm_mode = True
@@ -54,7 +55,7 @@ class RegisterResponse(BaseModel):
     email: str
     token: str
     token_type: str
-    role = str
+    avatar: str
 
     class Config:
         orm_mode = True
@@ -72,6 +73,7 @@ class LoginResponse(BaseModel):
     email: str
     token: str
     token_type: str
+    avatar: str
 
     class Config:
         orm_mode = True

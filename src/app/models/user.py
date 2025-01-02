@@ -14,7 +14,10 @@ class User(BaseModel):
     phone = Column(String, nullable=False)
     gender = Column(Integer, nullable=True)
     email = Column(String, nullable=True)
+    avatar = Column(String, nullable=True)
 
-    
+    joins = relationship(
+        "Join", back_populates="user", cascade="all, delete-orphan"
+    )
     class Config:
         orm_mode = True

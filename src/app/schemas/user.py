@@ -12,6 +12,7 @@ class UserResponseSchema(BaseModel):
     gender: int
     phone: str
     email: str
+    avatar: str
 
     class Config:
         orm_mode = True
@@ -31,4 +32,5 @@ class UserUpdateInfoSchema(BaseModel):
     city: Optional[str]
     address_1: Optional[str]
     address_2: Optional[str]
+    avatar: Optional[str]
    
