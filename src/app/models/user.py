@@ -19,5 +19,11 @@ class User(BaseModel):
     joins = relationship(
         "Join", back_populates="user", cascade="all, delete-orphan"
     )
+    debts = relationship(
+        "Owe", foreign_keys="[Owe.user_id]", back_populates="user", cascade="all, delete-orphan"
+    )
+    credits = relationship(
+        "Owe", foreign_keys="[Owe.creditor_id]", back_populates="creditor", cascade="all, delete-orphan"
+    )
     class Config:
         orm_mode = True
