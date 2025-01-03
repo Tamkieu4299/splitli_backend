@@ -13,3 +13,6 @@ class Join(BaseModel):
 
     group = relationship("group", back_populates="joins")
     user = relationship("User", back_populates="joins")
+
+    class Config:
+        orm_mode = True

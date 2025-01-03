@@ -15,3 +15,6 @@ class Owe(BaseModel):
     user = relationship("User", foreign_keys=[user_id], back_populates="debts")
     creditor = relationship("User", foreign_keys=[creditor_id], back_populates="credits")
     group = relationship("Group", back_populates="owes")
+
+    class Config:
+        orm_mode = True
