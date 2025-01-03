@@ -32,7 +32,7 @@ async def create(
     payload: GroupAdd,
     db: Session = Depends(get_db),
 ):
-    group = group_crud.create(payload.dict(), db)
+    group = await group_crud.create(payload.dict(), db)
     if group is None:
         logger.info(f"Fail to create group")
         raise InvalidDestination(message=f"Fail to create group")

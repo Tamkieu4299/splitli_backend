@@ -9,6 +9,7 @@ from middleware.request_context import RequestContextMiddleware
 from middleware.request_logging import RequestLoggingMiddleware
 from models._base_model import _metadata_obj
 from routers.auth import router as auth_router
+from routers.group import router as group_router
 from app.models import Group, Join, User, Owe
 settings = Settings()
 PREFIX = f"/api/{settings.API_VERSION}"
@@ -41,3 +42,4 @@ app.add_middleware(RequestLoggingMiddleware)
 
 # Include the router
 app.include_router(auth_router, tags=["Authenication"], prefix=f"{PREFIX}/auth")
+app.include_router(group_router, tags=["Group"], prefix=f"{PREFIX}/group")
